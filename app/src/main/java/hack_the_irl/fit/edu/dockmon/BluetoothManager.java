@@ -40,6 +40,7 @@ public class BluetoothManager extends Activity
     int readBufferPosition;
     int counter;
     volatile boolean stopWorker;
+    StringBuilder stringBuilder = new StringBuilder();
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -170,13 +171,21 @@ public class BluetoothManager extends Activity
     }
     public String convert(byte[] inputStream, int avail) throws IOException {
 
-        StringBuilder stringBuilder = new StringBuilder();
+
         //String line = null;
         for (int i = 0; i < avail;i++) {
             char c = (char) inputStream[i];
             if ((int)c == 0x04) {
                 Log.d("BTMan","End of transmission");
+                final String stringData = stringBuilder.toString();
+                runOnUiThread(new Runnable() {
 
+                    @Override
+                    public void run() {
+                        myLabel.setText(stringData);
+                    }
+                });
+                stringBuilder = new StringBuilder();
             } else {
                 stringBuilder.append(c);
             }
