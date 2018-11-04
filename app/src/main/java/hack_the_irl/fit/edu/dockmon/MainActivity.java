@@ -14,11 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.jjoe64.graphview.GraphView;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Set;
@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
     StringBuilder stringBuilder = new StringBuilder();
     /*BLUETOOTH VARS*/
 
-    GraphView hum_graph = (GraphView) findViewById(R.id.hum_graph);
-    GraphView tem_graph = (GraphView) findViewById(R.id.temp_graph);
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -199,6 +197,8 @@ public class MainActivity extends AppCompatActivity {
                             mmInputStream.read(packetBytes);
                             String msg = convert(packetBytes, bytesAvailable);
                             //THIS IS WHERE WE GET THE DATA
+                            ArrayList<String> sdbijufbisjkub = parseData(msg);
+
                             Log.d("BTMan210", msg);
 
                         }
@@ -224,5 +224,22 @@ public class MainActivity extends AppCompatActivity {
         mmInputStream.close();
         mmSocket.close();
         Log.d("DocMan","Bluetooth Closed");
+    }
+    ArrayList<String> parseData(String in){
+        ArrayList<String> arr = new ArrayList();
+        int x = 0;
+        String tempString = "";
+        for(int i = 0; i < in.length(); i++){
+            char c = in.charAt(i);
+            if(!Character.isWhitespace(c)){
+                if(in.charAt(i) == ','){
+                    arr.add(tempString);
+                    tempString = "";
+                }
+                else
+                    tempString += c;
+            }
+        }
+        return arr;
     }
 }
