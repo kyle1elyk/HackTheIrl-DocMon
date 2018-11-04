@@ -18,6 +18,19 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.jjoe64.graphview.GraphView
+        android:id="@+id/hum_graph"
+        android:layout_width="match_parent"
+        android:layout_height="200dip"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="7dp" />
+
+    <com.jjoe64.graphview.GraphView
+        android:id="@+id/temp_graph"
+        android:layout_width="match_parent"
+        android:layout_height="200dip"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="226dp" />
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="0dp"

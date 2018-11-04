@@ -39,7 +39,6 @@ public class BluetoothManager extends Activity
     Thread workerThread;
     byte[] readBuffer;
     int readBufferPosition;
-    int counter;
     volatile boolean stopWorker;
     StringBuilder stringBuilder = new StringBuilder();
 
@@ -146,31 +145,7 @@ public class BluetoothManager extends Activity
 
         myLabel.setText("Bluetooth Opened");
     }
-    public String readBytes(InputStream inputStream) throws IOException {
-        /*
-        // this dynamically extends to take the bytes you read
-        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
 
-        // this is storage overwritten on each iteration with bytes
-        int bufferSize = inputStream.available();
-        byte[] buffer = new byte[bufferSize];
-
-        // we need to know how may bytes were read to write them to the byteBuffer
-        int len;
-        while ((len = inputStream.read(buffer)) != -1) {
-            byteBuffer.write(buffer, 0, len);
-        }
-        Log.d("BTMan","Got here");
-        // and then we can return your byte array.
-        return byteBuffer.toByteArray();
-        */
-        Scanner input = new Scanner(inputStream);
-        String result = "";
-        while (input.hasNextLine()) {
-            result += input.nextLine();
-        }
-        return result;
-    }
     public String convert(byte[] inputStream, int avail) throws IOException {
 
 
