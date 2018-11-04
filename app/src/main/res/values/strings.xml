@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Dock Mon</string>
+    <string name="title_home">Home</string>
+    <!--<string name="title_dashboard">Dashboard</string>-->
+    <!--<string name="missing_data">Can not find the CSV file!</string>-->
+    <string name="title_bluetooth_manager">Debug</string>
+</resources>
