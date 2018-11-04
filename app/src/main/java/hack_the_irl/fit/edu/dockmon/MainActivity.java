@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.jjoe64.graphview.GraphView;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -39,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
     StringBuilder stringBuilder = new StringBuilder();
     /*BLUETOOTH VARS*/
 
-
-
+    GraphView hum_graph = (GraphView) findViewById(R.id.hum_graph);
+    GraphView tem_graph = (GraphView) findViewById(R.id.temp_graph);
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
