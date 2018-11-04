@@ -1,8 +1,11 @@
 package hack_the_irl.fit.edu.dockmon;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,7 +22,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.UUID;
@@ -197,7 +199,11 @@ public class MainActivity extends AppCompatActivity {
                             mmInputStream.read(packetBytes);
                             String msg = convert(packetBytes, bytesAvailable);
                             //THIS IS WHERE WE GET THE DATA
-                            ArrayList<String> sdbijufbisjkub = parseData(msg);
+                            //Object[] data = returnLastDataPoint(msg);
+                            //ArrayList<String> sdbijufbisjkub = parseData(msg);
+                            //Toast.makeText(getApplicationContext(), "Retreived", Toast.LENGTH_SHORT).show();
+
+
 
                             Log.d("BTMan210", msg);
 
@@ -216,7 +222,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     void closeBT() throws IOException
     {
         stopWorker = true;
@@ -227,19 +232,53 @@ public class MainActivity extends AppCompatActivity {
     }
     ArrayList<String> parseData(String in){
         ArrayList<String> arr = new ArrayList();
-        int x = 0;
+
         String tempString = "";
         for(int i = 0; i < in.length(); i++){
             char c = in.charAt(i);
             if(!Character.isWhitespace(c)){
-                if(in.charAt(i) == ','){
+                if(in.charAt(i) == ',') {
                     arr.add(tempString);
                     tempString = "";
-                }
-                else
+                } else {
                     tempString += c;
+                }
             }
         }
         return arr;
+    }
+    Object[] returnLastDataPoint(String msg) {
+        Object[] objs = new Object[3];
+
+        String[] c = msg.split("\n");
+        String f = c[c.length - 2];
+        String[] fs = f.split(",");
+        boolean err = false;
+        // Get Date Marker
+        String dateTime = fs[0];//f.substring(0, f.indexOf(','));
+        Log.d("BTMan",f);
+        objs[0] = dateTime;
+
+        // Get humidity
+        String humStr = fs[1];//(f.substring(f.indexOf(',')+1, f.lastIndexOf(',')));
+        try {
+            float humFlt = Float.parseFloat(humStr);
+            objs[1] = humFlt;
+        } catch (Exception e) {
+            err = true;
+        }
+
+        // Get temp
+        String tempStr = fs[2];//f.substring(f.lastIndexOf(','));
+        try {
+            float tempFlt = Float.parseFloat(tempStr);
+            objs[2] = tempFlt;
+        } catch (Exception e) {
+            err = true;
+        }
+        if (err) {
+            //throw new Exception("Data parsing failed.");
+        }
+        return objs;
     }
 }

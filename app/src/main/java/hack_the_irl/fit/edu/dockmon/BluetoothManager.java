@@ -160,7 +160,7 @@ public class BluetoothManager extends Activity
                     @Override
                     public void run() {
                         if (!stringData.isEmpty()) {
-                            scrollView.setText(stringData);
+                            scrollView.setText("Time                   Hum     Temp\r\n" + stringData.replaceAll(",",",   "));
                         }
                     }
                 });
