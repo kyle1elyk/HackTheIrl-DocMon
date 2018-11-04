@@ -29,6 +29,7 @@ import java.util.UUID;
 public class BluetoothManager extends Activity
 {
     TextView myLabel;
+    TextView scrollView;
     EditText myTextbox;
     BluetoothAdapter mBluetoothAdapter;
     BluetoothSocket mmSocket;
@@ -52,6 +53,7 @@ public class BluetoothManager extends Activity
         Button sendButton = (Button)findViewById(R.id.send);
         Button closeButton = (Button)findViewById(R.id.close);
         myLabel = (TextView)findViewById(R.id.label);
+        scrollView = (TextView) findViewById(R.id.data);
         myTextbox = (EditText)findViewById(R.id.entry);
 
         //Open Button
@@ -182,7 +184,9 @@ public class BluetoothManager extends Activity
 
                     @Override
                     public void run() {
-                        myLabel.setText(stringData);
+                        if (!stringData.isEmpty()) {
+                            scrollView.setText(stringData);
+                        }
                     }
                 });
                 stringBuilder = new StringBuilder();

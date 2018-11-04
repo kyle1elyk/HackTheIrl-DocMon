@@ -42,4 +42,18 @@
         android:layout_alignTop="@id/send"
         android:layout_toLeftOf="@id/send"
         android:text="Close" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/send"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+    </ScrollView>
+
 </RelativeLayout>
